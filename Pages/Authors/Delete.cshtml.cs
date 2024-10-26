@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Socaciu_Alexia_Lab2.Data;
 using Socaciu_Alexia_Lab2.Models;
 
-namespace Socaciu_Alexia_Lab2.Pages.Books
+namespace Socaciu_Alexia_Lab2.Pages.Author
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Models.Author Authors { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,17 +29,15 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book
-                .Include(b=>b.Author)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var authors = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (book == null)
+            if (authors == null)
             {
                 return NotFound();
             }
             else
             {
-                Book = book;
+                Authors = authors;
             }
             return Page();
         }
@@ -51,11 +49,11 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
-            if (book != null)
+            var authors = await _context.Author.FindAsync(id);
+            if (authors != null)
             {
-                Book = book;
-                _context.Book.Remove(Book);
+                Authors = authors;
+                _context.Author.Remove(Authors);
                 await _context.SaveChangesAsync();
             }
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Socaciu_Alexia_Lab2.Data;
 using Socaciu_Alexia_Lab2.Models;
 
-namespace Socaciu_Alexia_Lab2.Pages.Books
+namespace Socaciu_Alexia_Lab2.Pages.Author
 {
     public class IndexModel : PageModel
     {
@@ -19,14 +19,11 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Models.Author> Authors { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Book = await _context.Book
-                .Include(b=>b.Publisher)
-                .Include(b => b.Author)
-                .ToListAsync();
+            Authors = await _context.Author.ToListAsync();
         }
     }
 }
