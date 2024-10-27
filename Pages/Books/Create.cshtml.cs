@@ -19,6 +19,12 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
             _context = context;
         }
 
+        [BindProperty]
+        public Book Book { get; set; } = default!;
+
+        [BindProperty]
+        public List<AssignedCategoryData> AssignedCategoryDataList { get; set; } = new List<AssignedCategoryData>();
+
         public IActionResult OnGet()
         {
             var authorList = _context.Author.Select(x => new
@@ -28,13 +34,18 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
             });
             ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
             ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+
+            // Populează lista de categorii
+            AssignedCategoryDataList = _context.Category.Select(c => new AssignedCategoryData
+            {
+                CategoryID = c.ID,
+                Name = c.CategoryName,
+                Assigned = false // Setați la false sau true în funcție de logică
+            }).ToList();
+
             return Page();
         }
 
-        [BindProperty]
-        public Book Book { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
