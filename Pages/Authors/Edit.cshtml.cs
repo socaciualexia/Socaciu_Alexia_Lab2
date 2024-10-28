@@ -30,7 +30,7 @@ namespace Socaciu_Alexia_Lab2.Pages.Author
                 return NotFound();
             }
 
-            var authors =  await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            var authors = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
             if (authors == null)
             {
                 return NotFound();

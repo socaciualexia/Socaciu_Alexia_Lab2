@@ -12,9 +12,9 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
 {
     public class DetailsModel : PageModel
     {
-        private readonly Socaciu_Alexia_Lab2.Data.Socaciu_Alexia_Lab2Context _context;
+        private readonly Socaciu_Alexia_Lab2Context _context;
 
-        public DetailsModel(Socaciu_Alexia_Lab2.Data.Socaciu_Alexia_Lab2Context context)
+        public DetailsModel(Socaciu_Alexia_Lab2Context context)
         {
             _context = context;
         }
@@ -28,15 +28,18 @@ namespace Socaciu_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            // Include BookCategories and the related Category entities, and also include the Author
+            Book = await _context.Book
+                .Include(b => b.BookCategories)
+                    .ThenInclude(bc => bc.Category)
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Book == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Book = book;
-            }
+
             return Page();
         }
     }

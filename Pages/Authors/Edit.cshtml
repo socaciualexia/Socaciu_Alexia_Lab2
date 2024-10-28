@@ -1,40 +1,30 @@
-﻿@page
-@model Socaciu_Alexia_Lab2.Pages.Author.EditModel
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Socaciu_Alexia_Lab2.Data;
+using Socaciu_Alexia_Lab2.Models;
 
-@{
-    ViewData["Title"] = "Edit";
-}
+namespace Socaciu_Alexia_Lab2.Pages.Author
+{
+    public class IndexModel : PageModel
+    {
+        private readonly Socaciu_Alexia_Lab2.Data.Socaciu_Alexia_Lab2Context _context;
 
-<h1>Edit</h1>
+        public IndexModel(Socaciu_Alexia_Lab2.Data.Socaciu_Alexia_Lab2Context context)
+        {
+            _context = context;
+        }
 
-<h4>Author</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Authors.ID" />
-            <div class="form-group">
-                <label asp-for="Authors.FirstName" class="control-label"></label>
-                <input asp-for="Authors.FirstName" class="form-control" />
-                <span asp-validation-for="Authors.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Authors.LastName" class="control-label"></label>
-                <input asp-for="Authors.LastName" class="form-control" />
-                <span asp-validation-for="Authors.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        public IList<Models.Author>
+    Authors { get; set; } = default!;
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    public async Task OnGetAsync()
+    {
+    Authors = await _context.Author.ToListAsync();
+    }
+    }
+    }

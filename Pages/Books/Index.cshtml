@@ -51,7 +51,14 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author)
+                    @if (item.Author != null)
+                    {
+                        @item.Author.FirstName @item.Author.LastName
+                    }
+                    else
+                    {
+                        <p>No author assigned.</p>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)

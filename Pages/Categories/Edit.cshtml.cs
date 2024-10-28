@@ -30,7 +30,7 @@ namespace Socaciu_Alexia_Lab2.Pages.Categories
                 return NotFound();
             }
 
-            var category =  await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
             if (category == null)
             {
                 return NotFound();

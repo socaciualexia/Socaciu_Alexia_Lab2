@@ -19,7 +19,7 @@ namespace Socaciu_Alexia_Lab2.Pages.Author
             _context = context;
         }
 
-        public IList<Models.Author> Authors { get;set; } = default!;
+        public IList<Models.Author> Authors { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

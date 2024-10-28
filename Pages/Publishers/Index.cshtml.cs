@@ -19,7 +19,7 @@ namespace Socaciu_Alexia_Lab2.Pages.Publishers
             _context = context;
         }
 
-        public IList<Publisher> Publisher { get;set; } = default!;
+        public IList<Publisher> Publisher { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

@@ -7,5 +7,8 @@
         public string LastName { get; set; }
 
         public ICollection<Book>? Books { get; set; }
+
+        // Proprietate calculată pentru afișarea numelui complet
+        public string FullName => $"{FirstName} {LastName}";
     }
 }
