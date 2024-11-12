@@ -7,8 +7,13 @@ namespace Socaciu_Alexia_Lab2.Models
     {
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "The book title is required.")]
+        [StringLength(150, ErrorMessage = "The title cannot exceed 150 characters.")]
+        [MinLength(3, ErrorMessage = "The title must be at least 3 characters long.")]
+
         [Display(Name = "Book Title")]
         public string Title { get; set; }
+        [Column(TypeName = "decimal(6, 2)"), Range(0.01, 500)]
 
         public decimal Price { get; set; }
 
